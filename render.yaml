@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: saydan
+    runtime: docker
+    plan: starter            # doimiy disk uchun pullik reja kerak (bepul rejada baza o'chib ketadi)
+    healthCheckPath: /api/health
+    disk:
+      name: saydan-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - { key: NODE_ENV, value: production }
+      - { key: TRUST_PROXY, value: "1" }
+      - { key: PUBLIC_URL, sync: false }        # masalan https://saydan.onrender.com
+      - { key: SUPER_ADMIN_EMAIL, sync: false }  # o'zingizning email manzilingiz
+      - { key: MAIL_PROVIDER, value: brevo }
+      - { key: MAIL_FROM, sync: false }
+      - { key: BREVO_API_KEY, sync: false }
+      - { key: PROFILE_ENCRYPTION_KEY, generateValue: true }
